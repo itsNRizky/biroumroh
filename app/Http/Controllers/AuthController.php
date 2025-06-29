@@ -40,28 +40,21 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
-        $request->validate([
-            'role' => 'required',
-            'namaBiro' => 'required',
-            'namaPT' => 'required',
-            'pemilik' => 'required',
-            'ijin' => 'required',
-            'alamat' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-        ]);
+        // dd($request->all());
+        if (Auth::check()) {
+            return redirect('/')->withErrors('Anda sudah login');
+        }
 
         User::create([
-           "role" => $request->role,
-           "nama" => $request->namaBiro,
-           "nama_pt" => $request->namaPT,
-           "pemilik" => $request->pemilik,
-           "ijin_biro" => $request->ijin,
-           "alamat" => $request->alamat,
-           "telepon" => $request->phone,
-           "email" => $request->email,
-           "password" => bcrypt($request->password),
+            "role" => 'biro',
+            "nama" => $request->namaBiro,
+            "nama_pt" => $request->namaPT,
+            "pemilik" => $request->pemilik,
+            "ijin_biro" => $request->ijin,
+            "alamat" => $request->alamat,
+            "telepon" => $request->phone,
+            "email" => $request->email,
+            "password" => bcrypt($request->password),
         ]);
 
         return redirect('/')->withSuccess('you have signed in');
@@ -76,7 +69,8 @@ class AuthController extends Controller
     // }
 
 
-    public function logout() {
+    public function logout()
+    {
         Session::flush();
         Auth::logout();
         return redirect('/');

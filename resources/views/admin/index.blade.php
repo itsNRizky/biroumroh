@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,8 +21,8 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Sidebar -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	{{-- <link rel="stylesheet" href="{{asset('css/sidebar.style.css')}}"> --}}
-	{{-- <link rel="stylesheet" href="{{asset('css/sidebar.style-2.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{asset('css/sidebar.style.css')}}"> --}}
+    {{-- <link rel="stylesheet" href="{{asset('css/sidebar.style-2.css')}}"> --}}
     <title>Hana Safar | {{ $title }}</title>
     <link rel="shortcut icon" href="{{asset('assets/brand/favicon.ico')}}" type="image/x-icon">
 </head>
@@ -37,10 +38,12 @@
         border-radius: 50%;
         background-color: rgb(173, 173, 173);
     }
+
     .carousel-indicators button.carousel-indicators-admin.active {
         background-color: #FFC107;
     }
 </style>
+
 <body onload="removeLoader()">
     <div class="loader-section" id="loader-section">
         <div class="position-absolute top-50 start-50 translate-middle">
@@ -49,9 +52,9 @@
     </div>
 
     <div class="wrapper d-flex align-items-stretch">
-    <!-- navbar -->
-            @include('../partials/sidebar')
-    <!-- end navbar -->
+        <!-- navbar -->
+        @include('../partials/sidebar')
+        <!-- end navbar -->
 
         <div class="container-fluid p-4 p-md-5 pt-5">
             <div class="row">
@@ -157,7 +160,8 @@
                                                 <div class="row justify-content-end">
                                                     <div class="col-auto mt-2">
                                                         <h5 class="mr-1 fw-bold text-primaryy" style="color: #2A5044;">Rp.
-                                                            {{$paket->harga}}</h5>
+                                                            {{$paket->harga}}
+                                                        </h5>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="d-grid gap-2">
@@ -184,21 +188,21 @@
                 <div class="col-md-4">
                     {{-- carousel content --}}
                     <div id="carouselAdmin" class="carousel slide shadow rounded overflow-hidden" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        @foreach($carousels as $carousel => $item)
+                        <div class="carousel-indicators">
+                            @foreach($carousels as $carousel => $item)
                             <button type="button" data-bs-target="#carouselAdmin" data-bs-slide-to="{{ $carousel }}" class="carousel-indicators-admin {{ $carousel == 0 ? 'active' : '' }}" aria-current="{{ $carousel == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $carousel + 1 }}"></button>
-                        @endforeach
-                    </div>
-                    <div class="carousel-inner">
-                        @foreach($carousels as $carousel => $item)
+                            @endforeach
+                        </div>
+                        <div class="carousel-inner">
+                            @foreach($carousels as $carousel => $item)
                             <div class="carousel-item {{ $carousel == 0 ? 'active' : '' }}">
                                 <div class="bg-secondary" style="width: 100%; aspect-ratio: 16 / 9;">
                                     <img src="{{ asset('storage/' . $item->media) }}" class="d-block w-100" alt="...">
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                </div>                    {{-- end carousel content --}}
+                            @endforeach
+                        </div>
+                    </div> {{-- end carousel content --}}
 
                     {{-- carousel table --}}
                     <div class="row justify-content-between mt-3">
@@ -225,7 +229,7 @@
                                 </div>
                             </li>
                             @empty
-                                <p class="text-center m-1 text-secondary">carousel empty!</p>
+                            <p class="text-center m-1 text-secondary">carousel empty!</p>
                             @endforelse
                         </ul>
                     </div>
@@ -239,22 +243,22 @@
 
     {{-- MODALS START --}}
 
-        {{-- MODALS ADD CAROUSEL --}}
-        <div class="modal fade" id="modalCarousel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
+    {{-- MODALS ADD CAROUSEL --}}
+    <div class="modal fade" id="modalCarousel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header bg-green">
-                  <h1 class="modal-title fs-5 text-light fw-semibold" id="exampleModalLabel">Tambah gambar</h1>
+                    <h1 class="modal-title fs-5 text-light fw-semibold" id="exampleModalLabel">Tambah gambar</h1>
                 </div>
                 <div class="modal-body">
-                  <form action="/create/carousel" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <input type="file" name="media" id="carousel-image" required>
+                    <form action="/create/carousel" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <input type="file" name="media" id="carousel-image" required>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-warning px-4">Tambahkan</button>
                 </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
@@ -262,8 +266,8 @@
 
     @foreach ($pakets as $paket)
 
-        {{-- MODALS DETAIL PAKET --}}
-        <div class="modal fade" id="detailPaket{{$paket->id}}" data-bs-backdrop="static" data-bs-keyboard="false"
+    {{-- MODALS DETAIL PAKET --}}
+    <div class="modal fade" id="detailPaket{{$paket->id}}" data-bs-backdrop="static" data-bs-keyboard="false"
         tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen">
             <div class="modal-content" style="border-radius: 10px;">
@@ -275,29 +279,29 @@
                         <div class="row justify-content-end">
                             <div class="col-auto">
                                 <a type="button" class="my-3 text-dark" data-bs-dismiss="modal" aria-label="Close" title="Kembali"><i
-                                    class="fa-solid fa-xmark fs-5"></i></a>
-                                </div>
+                                        class="fa-solid fa-xmark fs-5"></i></a>
                             </div>
-                            <div class="text-start">
-                                <h4 class="mb-0 fw-bold mt-0" style="color: #2A5044;">Detail Paket <i
+                        </div>
+                        <div class="text-start">
+                            <h4 class="mb-0 fw-bold mt-0" style="color: #2A5044;">Detail Paket <i
                                     class="fa-solid fa-kaaba" style="color: #FFC20B;"></i></h4>
-                                    <p class="mb-0 text-secondary mt-2">Selalu Membantu Perjalanan Ibadah Anda</p>
+                            <p class="mb-0 text-secondary mt-2">Selalu Membantu Perjalanan Ibadah Anda</p>
+                        </div>
+                        <hr>
+                        @csrf
+                        <div class="sub-detail">
+                            <div class="row justify-content-center">
+                                <div class="col-12">
+                                    <h6 class="fw-semibold text-green mb-3 judul-sub-detail shadow">
+                                        Mengenai
+                                        Paket
+                                    </h6>
+                                    <hr>
                                 </div>
-                                <hr>
-                                @csrf
-                                <div class="sub-detail">
-                                    <div class="row justify-content-center">
-                                        <div class="col-12">
-                                            <h6 class="fw-semibold text-green mb-3 judul-sub-detail shadow">
-                                                Mengenai
-                                                Paket
-                                            </h6>
-                                            <hr>
-                                        </div>
-                                        <!--  -->
-                                        <div class="col-6">
-                                            <p class="ms-3 mt-0 mb-2 me-0">Nama Paket</p>
-                                        </div>
+                                <!--  -->
+                                <div class="col-6">
+                                    <p class="ms-3 mt-0 mb-2 me-0">Nama Paket</p>
+                                </div>
                                 <div class="col-1">:</div>
                                 <div class="col-5">{{$paket->name}}</div>
                                 <!--  -->
@@ -317,11 +321,11 @@
                                         Detail
                                         Keberangkatan dan
                                         Kepulangan</h6>
-                                        <hr>
-                                    </div>
-                                    <!--  -->
-                                    <div class="col-6">
-                                        <p class="ms-3 mt-0 mb-2 me-0">Tanggal Keberangkatan</p>
+                                    <hr>
+                                </div>
+                                <!--  -->
+                                <div class="col-6">
+                                    <p class="ms-3 mt-0 mb-2 me-0">Tanggal Keberangkatan</p>
                                 </div>
                                 <div class="col-1">:</div>
                                 <div class="col-5">{{date('d-m-Y', strtotime($paket->tanggal_keberangkatan))}}</div>
@@ -394,30 +398,30 @@
                                         <div class="col-xl-3 col-md-6 col-sm-6">
                                             <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Tiket Pesawat <i
                                                     class="fa-solid fa-plane-departure ms-2"></i></p>
-                                                </div>
-                                                @endif
-                                                @if ($paket->visa == 'yes')
-                                                <div class="col-xl-3 col-md-6 col-sm-6">
+                                        </div>
+                                        @endif
+                                        @if ($paket->visa == 'yes')
+                                        <div class="col-xl-3 col-md-6 col-sm-6">
                                             <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Visa-Siskohat <i
-                                                class="fa-brands fa-cc-visa ms-2"></i></p>
-                                            </div>
-                                            @endif
-                                            @if ($paket->akomodasi == 'yes')
-                                            <div class="col-xl-3 col-md-6 col-sm-6">
-                                                <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Akomodasi di Saudi <i
+                                                    class="fa-brands fa-cc-visa ms-2"></i></p>
+                                        </div>
+                                        @endif
+                                        @if ($paket->akomodasi == 'yes')
+                                        <div class="col-xl-3 col-md-6 col-sm-6">
+                                            <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Akomodasi di Saudi <i
                                                     class="fa-solid fa-hotel ms-2"></i></p>
-                                                </div>
-                                                @endif
-                                                @if ($paket->makan == 'yes')
-                                                <div class="col-xl-3 col-md-6 col-sm-6">
-                                                    <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Makan di Saudi <i
-                                                        class="fa-solid fa-utensils ms-2"></i></p>
-                                                    </div>
-                                                    @endif
-                                                    @if ($paket->umroh == 'yes')
-                                                    <div class="col-xl-3 col-md-6 col-sm-6">
+                                        </div>
+                                        @endif
+                                        @if ($paket->makan == 'yes')
+                                        <div class="col-xl-3 col-md-6 col-sm-6">
+                                            <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Makan di Saudi <i
+                                                    class="fa-solid fa-utensils ms-2"></i></p>
+                                        </div>
+                                        @endif
+                                        @if ($paket->umroh == 'yes')
+                                        <div class="col-xl-3 col-md-6 col-sm-6">
                                             <p class="ms-0 mt-0 mb-3 me-0 fasilitas">Umroh 3 Kali <i
-                                                class="fa-solid fa-kaaba ms-2"></i></p>
+                                                    class="fa-solid fa-kaaba ms-2"></i></p>
                                         </div>
                                         @endif
                                         @if ($paket->tour == !null)
@@ -454,15 +458,15 @@
                                     </div>
                                 </div>
                                 <!--  -->
-                                {{--  --}}
+                                {{-- --}}
                                 <hr>
-                                        <div class="row justify-content-start">
-                                            <div class="col-auto">
-                                                <div class="text-green fw-semibold mb-2">saya tertarik dengan paket ini</div>
-                                                <a class="btn btn-warning px-5 text-green fw-semibold shadow" href="https://wa.me/089658978803" target="_blank">Hubungi kami <i class="fa-brands fa-whatsapp"></i></a>
-                                            </div>
-                                        </div>
-                                {{--  --}}
+                                <div class="row justify-content-start">
+                                    <div class="col-auto">
+                                        <div class="text-green fw-semibold mb-2">saya tertarik dengan paket ini</div>
+                                        <a class="btn btn-warning px-5 text-green fw-semibold shadow" href="https://wa.me/089658978803" target="_blank">Hubungi kami <i class="fa-brands fa-whatsapp"></i></a>
+                                    </div>
+                                </div>
+                                {{-- --}}
                             </div>
                         </div>
                     </div>
@@ -472,34 +476,34 @@
     </div>
     @endforeach
 
-        {{-- END OF MODALS DETAIL PAKET --}}
+    {{-- END OF MODALS DETAIL PAKET --}}
 
     {{-- MODALS END --}}
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"> </script>
-<script src="https://cdn.jsdelivr.net/npm/dropify/dist/js/dropify.min.js"></script>
-<script>
-
-    function removeLoader() {
-        document.getElementById('loader-section').classList.add('d-none')
-    }
-
-    $('#carousel-image').dropify({
-        messages: {
-            'default': 'Drag or drop the image here',
-            'replace': 'Drag or drop the image or click to replace',
-            'remove':  'Remove',
-            'error':   'Ooops, something wrong happened.'
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/dropify/dist/js/dropify.min.js"></script>
+    <script>
+        function removeLoader() {
+            document.getElementById('loader-section').classList.add('d-none')
         }
-    });
-</script>
-<!-- sidebar script -->
-<script src="{{asset('js/sidebar.jquery.min.js')}}"></script>
-<script src="{{asset('js/sidebar.popper.js')}}"></script>
-<script src="{{asset('js/sidebar.bootstrap.min.js')}}"></script>
-<script src="{{asset('js/sidebar.main.js')}}"></script>
-<!-- end sidebar script -->
-<script>
-</script>
+
+        $('#carousel-image').dropify({
+            messages: {
+                'default': 'Drag or drop the image here',
+                'replace': 'Drag or drop the image or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong happened.'
+            }
+        });
+    </script>
+    <!-- sidebar script -->
+    <script src="{{asset('js/sidebar.jquery.min.js')}}"></script>
+    <script src="{{asset('js/sidebar.popper.js')}}"></script>
+    <script src="{{asset('js/sidebar.bootstrap.min.js')}}"></script>
+    <script src="{{asset('js/sidebar.main.js')}}"></script>
+    <!-- end sidebar script -->
+    <script>
+    </script>
 </body>
+
 </html>

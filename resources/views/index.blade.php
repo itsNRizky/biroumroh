@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,17 +30,34 @@
     <link rel="shortcut icon" href="{{ asset('/assets/brand/favicon.ico') }}" type="image/x-icon">
 </head>
 <style>
-body {
-    font-family: 'Lato', sans-serif;
-}
-.dropify-wrapper .dropify-message p {
-    font-size: 16px;
-}
-.sebaris {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+    body {
+        font-family: 'Lato', sans-serif;
+    }
+
+    .dropify-wrapper .dropify-message p {
+        font-size: 16px;
+    }
+
+    .sebaris {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .carousel {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding: 0;
+        list-style: none;
+    }
+
+    .ads {
+        min-width: 300px;
+        flex: 0 0 auto;
+    }
 </style>
 
 <body onload="removeLoader()">
@@ -85,7 +103,7 @@ body {
                                 <a href="" class="btn-custom fw-bold me-2 overflow-hidden btn-login-responsive m-0"
                                     style="color: #212121; font-size: 15px;" data-bs-toggle="modal"
                                     data-bs-target="#paketModal" title="Tambah Paket Umroh">Tambah <span class="hidden">Paket <i
-                                        class="fa-solid ms-2 fa-plane"></i></span></a>
+                                            class="fa-solid ms-2 fa-plane"></i></span></a>
                             </li>
                             @endif
                             <li class="nav-item">
@@ -100,7 +118,7 @@ body {
                                 <a href="" class="btn-custom fw-bold me-2 overflow-hidden btn-login-responsive m-0"
                                     style="color: #212121; font-size: 15px;" data-bs-toggle="modal"
                                     data-bs-target="#loginModal" title="Bergabung bersama kami">Login <span class="hidden">/ Daftar <i
-                                        class="fa-solid ms-2 fa-right-to-bracket"></i></span></a>
+                                            class="fa-solid ms-2 fa-right-to-bracket"></i></span></a>
                             </li>
                             @endguest
                         </ul>
@@ -111,8 +129,23 @@ body {
     </div>
     <div class="scrollbar-custom">
         <div class="wrapper d-flex align-items-center"
-        style="background-image: url('{{ asset('/assets/img/bgdua.jpg') }}');">
+            style="background-image: url('{{ asset('/assets/img/bgdua.jpg') }}');">
             <div class="container d-flex justify-content-center flex-column ">
+                @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>{{ session('success') }}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <h1 class="text-white welcome-text-custom text-center fw-bold mb-4">Selalu Membantu<br>Perjalanan Ibadah
                     Anda </h1>
                 <div class="container-fluid">
@@ -175,19 +208,19 @@ body {
 
                     {{-- CAROUSEL --}}
 
-                    {{-- @foreach ($carousels as $carousel)
+                    @foreach ($carousels as $carousel)
                     <li class="ads">
                         <div class="img">
-                            <img src="/storage/ . $carousel->media"
-                            alt="">
+                            <img src="{{ asset('storage/' . $carousel->media) }}"
+                                alt="">
                         </div>
                     </li>
-                    @endforeach --}}
+                    @endforeach
+
+                    {{-- END CAROUSEL --}}
                 </ul>
-                <button id="arrow-left" class="position-absolute bg-warning start-0 top-50 translate-middle-y"><i
-                        class="fas fa-arrow-left"></i></button>
-                <button id="arrow-right" class="position-absolute bg-warning end-0 top-50 translate-middle-y"><i
-                        class="fas fa-arrow-right"></i></button>
+                <button id="arrow-left" class="position-absolute bg-warning start-0 top-50 translate-middle-y"><i class="fas fa-arrow-left"></i></button>
+                <button id="arrow-right" class="position-absolute bg-warning end-0 top-50 translate-middle-y"><i class="fas fa-arrow-right"></i></button>
             </div>
             <span class="my-5"></span>
 
@@ -203,8 +236,8 @@ body {
                                 <div class="card card-content m-0 p-0 shadow">
                                     <div class="card-header m-0 p-0">
                                         <div class="img"
-                                        style="background-image: url('/storage/' . $item->media)">
-                                    </div>
+                                            style="background-image: url('/storage/' . $item->media)">
+                                        </div>
                                     </div>
                                     <div class="card-body m-0 px-3 pt-3 pb-3">
                                         <!--  -->
@@ -250,7 +283,8 @@ body {
                                         <div class="row justify-content-end">
                                             <div class="col-auto mt-2">
                                                 <h5 class="mr-1 fw-bold text-primaryy" style="color: #2A5044;">Rp.
-                                                    {{ number_format($item->harga) }},00</h5>
+                                                    {{ number_format($item->harga) }},00
+                                                </h5>
                                             </div>
                                             <div class="col-12">
                                                 <div class="d-grid gap-2">
@@ -466,7 +500,7 @@ body {
                                             </div>
                                         </div>
                                         <!--  -->
-                                        {{--  --}}
+                                        {{-- --}}
                                         <hr>
                                         <div class="row justify-content-start">
                                             <div class="col-auto">
@@ -474,7 +508,7 @@ body {
                                                 <a class="btn btn-warning px-5 text-green fw-semibold shadow" href="https://wa.me/089658978803" target="_blank">Hubungi kami <i class="fa-brands fa-whatsapp"></i></a>
                                             </div>
                                         </div>
-                                        {{--  --}}
+                                        {{-- --}}
                                     </div>
                                 </div>
                             </div>
@@ -550,7 +584,8 @@ body {
                             <div class="row justify-content-end">
                                 <div class="col-auto mt-2">
                                     <h5 class="mr-1 fw-bold text-primaryy" style="color: #2A5044;">Rp.
-                                        {{ number_format($item->harga) }},00</h5>
+                                        {{ number_format($item->harga) }},00
+                                    </h5>
                                 </div>
                                 <div class="col-12">
                                     <div class="d-grid gap-2">
@@ -755,7 +790,7 @@ body {
                                     </div>
                                 </div>
                                 <!--  -->
-                                {{--  --}}
+                                {{-- --}}
                                 <hr>
                                 <div class="row justify-content-start">
                                     <div class="col-auto">
@@ -763,7 +798,7 @@ body {
                                         <a class="btn btn-warning px-5 text-green fw-semibold shadow" href="https://wa.me/089658978803" target="_blank">Hubungi kami <i class="fa-brands fa-whatsapp"></i></a>
                                     </div>
                                 </div>
-                                {{--  --}}
+                                {{-- --}}
                             </div>
                         </div>
                     </div>
@@ -789,7 +824,7 @@ body {
                     </div>
                 </div>
                 <div class="modal-body container">
-                    <form action="/login" method="post" class=" container">
+                    <form action="/register" method="post" class=" container">
                         <div class="text-start">
                             <h4 class="mb-0 fw-bold" style="color: #2A5044;">Daftar <i
                                     class="fa-solid fa-right-to-bracket" style="color: #FFC20B;"></i></h4>
@@ -873,7 +908,7 @@ body {
                                     <input class="form-control form-custom show-password" placeholder="Input password" type="password"
                                         name="password" id="passwordDaftar" required>
                                 </div>
-                            <small class="text-danger d-none" style="font-size: 0.85em" id="invalidPassword">Password minimal 8 karakter</small>
+                                <small class="text-danger d-none" style="font-size: 0.85em" id="invalidPassword">Password minimal 8 karakter</small>
                             </div>
                         </div>
                         <div class="d-grid mb-4">
@@ -1200,9 +1235,9 @@ body {
 
     {{-- LOGOUT END --}}
 
-    {{--  --}}
+    {{-- --}}
     <div class="modal fade mt-5" id="validate" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content mt-5" style="border-radius: 10px;">
                 <div class="modal-body container">
@@ -1228,7 +1263,7 @@ body {
             </div>
         </div>
     </div>
-    {{--  --}}
+    {{-- --}}
 
     {{-- lokasi --}}
     {{-- <div class="container my-5">
@@ -1295,76 +1330,114 @@ body {
     <script src="/js/script.js"></script>
     <script src="/js/script-custom.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dropify/dist/js/dropify.min.js"></script>
-<script>
-// Mendapatkan elemen checkbox dan input teks
-// var checkbox = document.getElementById("inpshowInput");
-// var inputContainer = document.getElementById("inpinputContainer");
+    <script>
+        // Mendapatkan elemen checkbox dan input teks
+        // var checkbox = document.getElementById("inpshowInput");
+        // var inputContainer = document.getElementById("inpinputContainer");
 
-// Menambahkan event listener untuk checkbox
-// checkbox.addEventListener("click", function() {
-//     // Jika checkbox dicentang, tampilkan input teks; jika tidak, sembunyikan input teks
-//     if (checkbox.checked) {
-//         inputContainer.style.display = "block";
-//     } else {
-//         inputContainer.style.display = "none";
-//     }
-// });
+        // Menambahkan event listener untuk checkbox
+        // checkbox.addEventListener("click", function() {
+        //     // Jika checkbox dicentang, tampilkan input teks; jika tidak, sembunyikan input teks
+        //     if (checkbox.checked) {
+        //         inputContainer.style.display = "block";
+        //     } else {
+        //         inputContainer.style.display = "none";
+        //     }
+        // });
 
-// loader.style.display = "block";
+        // loader.style.display = "block";
 
-function showPassword() {
-    let eye = document.querySelectorAll('.show-password')
-    eye.forEach(e => {
-        if(e.type == "password") {
-            e.setAttribute('type', 'text')
-        } else {
-            e.setAttribute('type', 'password')
+        function showPassword() {
+            let eye = document.querySelectorAll('.show-password')
+            eye.forEach(e => {
+                if (e.type == "password") {
+                    e.setAttribute('type', 'text')
+                } else {
+                    e.setAttribute('type', 'password')
+                }
+            });
         }
-    });
-}
 
-let telp = document.getElementById('phone')
+        let telp = document.getElementById('phone')
 
-telp.addEventListener('input', function() {
-    let telepon = telp.value
-    if(telepon.length < 12 && telepon.length > 13) {
-        document.getElementById('invalidTelp').classList.add('d-none')
-    } else {
-        document.getElementById('invalidTelp').classList.remove('d-none')
-    }
-})
+        telp.addEventListener('input', function() {
+            let telepon = telp.value
+            if (telepon.length < 12 && telepon.length > 13) {
+                document.getElementById('invalidTelp').classList.add('d-none')
+            } else {
+                document.getElementById('invalidTelp').classList.remove('d-none')
+            }
+        })
 
-let pass = document.getElementById('passwordDaftar')
+        let pass = document.getElementById('passwordDaftar')
 
-pass.addEventListener('input', function() {
-    setTimeout(() => {
-        let password = pass.value;
-        let btnLogin = document.getElementById('btnDaftar');
-        let msg = document.getElementById('invalidPassword');
-        if (password.length < 8) {
-            btnLogin.setAttribute('disabled', 'true');
-            msg.classList.remove('d-none');
-        } else {
-            btnLogin.removeAttribute('disabled');
-            msg.classList.add('d-none');
+        pass.addEventListener('input', function() {
+            setTimeout(() => {
+                let password = pass.value;
+                let btnLogin = document.getElementById('btnDaftar');
+                let msg = document.getElementById('invalidPassword');
+                if (password.length < 8) {
+                    btnLogin.setAttribute('disabled', 'true');
+                    msg.classList.remove('d-none');
+                } else {
+                    btnLogin.removeAttribute('disabled');
+                    msg.classList.add('d-none');
+                }
+            }, 500);
+        })
+
+        function removeLoader() {
+            const loader = document.getElementById("loader-section");
+            loader.style.display = "none";
         }
-    }, 500);
-})
 
-function removeLoader() {
-        const loader = document.getElementById("loader-section");
-        loader.style.display = "none";
-}
+        $('#thumbnail').dropify({
+            messages: {
+                'default': 'Drag or drop the image here',
+                'replace': 'Drag or drop the image or click to replace',
+                'remove': 'Remove',
+                'error': 'Ooops, something wrong happened.'
+            }
+        });
 
-$('#thumbnail').dropify({
-    messages: {
-            'default': 'Drag or drop the image here',
-            'replace': 'Drag or drop the image or click to replace',
-            'remove':  'Remove',
-            'error':   'Ooops, something wrong happened.'
+        // Show flash card (call this function when needed)
+        function showFlashCard(message = "Data berhasil disimpan.", type = "success") {
+            const flashCard = document.getElementById('flashCard');
+            flashCard.classList.remove('alert-success', 'alert-danger', 'alert-warning');
+            flashCard.classList.add('alert-' + type);
+            flashCard.querySelector('strong').innerText = type.charAt(0).toUpperCase() + type.slice(1) + '!';
+            flashCard.childNodes[2].nodeValue = ' ' + message;
+            flashCard.style.display = 'block';
+            setTimeout(() => {
+                var alert = bootstrap.Alert.getOrCreateInstance(flashCard);
+                alert.close();
+            }, 3000);
         }
-});
 
-</script>
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const carousel = document.querySelector('.carousel');
+            const leftBtn = document.getElementById('arrow-left');
+            const rightBtn = document.getElementById('arrow-right');
+            const ads = document.querySelectorAll('.carousel .ads');
+            let scrollAmount = 0;
+            let itemWidth = ads.length > 0 ? ads[0].offsetWidth : 300;
+
+            leftBtn.addEventListener('click', function() {
+                carousel.scrollBy({
+                    left: -itemWidth,
+                    behavior: 'smooth'
+                });
+            });
+
+            rightBtn.addEventListener('click', function() {
+                carousel.scrollBy({
+                    left: itemWidth,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>

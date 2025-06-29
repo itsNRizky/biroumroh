@@ -11,24 +11,26 @@ use Illuminate\Support\Facades\Storage;
 
 class DashboardController extends Controller
 {
-    function index(Request $req) {
+    function index(Request $req)
+    {
 
         $title = 'Dashboard';
         $memberCount = User::count();
         $paketCount = Paket::count();
         $pakets = Paket::where('expired_date', '>=', Carbon::now())->where('status', 'accept')->latest()->paginate('2');
         $carousels = Carousel::all();
-        // dd($pakets);
-        return view('admin.index', compact('title', 'memberCount','paketCount','pakets','carousels'));
+
+        return view('admin.index', compact('title', 'memberCount', 'paketCount', 'pakets', 'carousels'));
     }
 
-    function createCarousel(Request $req) {
+    function createCarousel(Request $req)
+    {
         if ($req->hasFile('media')) {
             $carousel = Carousel::create([
                 'media' => '',
                 'name' => ''
             ]);
-            $foto =  $req->file('media')->store('carousel');
+            $foto =  $req->file('media')->store('carousel', 'public');
             $media = $req->media;
             $name = 'gambar' . $carousel->id . '.' . $media->extension();
             $carousel->update([
@@ -46,13 +48,15 @@ class DashboardController extends Controller
         return redirect('/dashboard');
     }
 
-    function memberBiro(Request $req) {
+    function memberBiro(Request $req)
+    {
         $title = 'Members';
         $biros = User::With('pakets')->where('role', 'biro')->get();
-        return view('admin.member',compact('title', 'biros'));
+        return view('admin.member', compact('title', 'biros'));
     }
 
-    function getPackage() {
+    function getPackage()
+    {
         $title = 'Paket';
         $pakets = Paket::where('status', 'pending')->get();
         return view('admin.validasiPaket', compact('title', 'pakets'));

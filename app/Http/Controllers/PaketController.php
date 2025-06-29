@@ -125,6 +125,7 @@ class PaketController extends Controller
                 'media' => ''
             ]);
 
+
             if ($request->hasFile('media')) {
                 $foto = $request->file('media')->store('paket', 'public');
                 $paket->update([
@@ -132,12 +133,10 @@ class PaketController extends Controller
                 ]);
             }
 
-            return redirect('/');
+            return redirect('/')->with('success', 'Paket berhasil disimpan!');
         } catch (\Exception $e) {
             Log::error('Failed to save paket: ' . $e->getMessage());
             return back()->withErrors(['error' => 'Failed to save paket: ' . $e->getMessage()])->withInput();
         }
     }
-
-
 }
